@@ -147,6 +147,7 @@ ISYPlatform.prototype.renameDeviceIfNeeded = function(device) {
 
 // Calls the isy-js library, retrieves the list of devices, and maps them to appropriate ISYXXXXAccessory devices.
 ISYPlatform.prototype.accessories = function(callback) {
+	var callbackCount = 0;
 	var that = this;
 	this.isy.initialize(function() {
 		var results = [];		
@@ -204,7 +205,8 @@ ISYPlatform.prototype.accessories = function(callback) {
             }
 		}
 		that.logger("ISYPLATFORM: Filtered device has: "+results.length+" devices");
-		callback(results);		
+		//callback(results);
+		if(callbackCount == 0) { callback(results); callbackCount++; }
 	});
 }
 
